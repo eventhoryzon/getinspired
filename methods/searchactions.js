@@ -1,5 +1,6 @@
 var User = require('../model/user');
 var config = require('../config/config');
+var mongoosastic = require('mongoosastic');
 
 var functions = {
     addNewUser: function(req, res){
@@ -48,7 +49,8 @@ var functions = {
             })
         }
        },
-   getallusers: function(req,res){
+      
+     getallusers: function(req,res){
   // Gets a list of Users
      User.find()
       .then(responseWithResult(res))
@@ -62,7 +64,6 @@ var functions = {
       res.status(statusCode).send(err);
     };
   }
-  
   function responseWithResult(res, statusCode) {
     statusCode = statusCode || 200;
     return function(entity) {

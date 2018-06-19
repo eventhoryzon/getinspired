@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
 var request = require('request');
+var mongoosastic = require('mongoosastic');
 var User = require('../model/user');
 var newUser = require('../methods/searchactions');
 
@@ -63,5 +64,50 @@ if(req.file){
 });
 
 router.get('/getallusers' , newUser.getallusers);
+
+
+// Trying to use elastisearch to map and search models on the point based system
+var Search = mongoose.model("User", SearchSchema);
+
+Search.createMapping(function(err, mapping){
+  if(err){
+    console.log('error creating mapping (you can safely ignore this)');
+    console.log(err);
+  }else{
+    console.log('mapping created!');
+    console.log(mapping);
+  }
+});
+
+router.post("/search/", function(req,res) {
+  var terms=req.body.terms;
+  Search.find({ 'firstname': new RegExp(terms, 'i') } , function(err,books,count) {
+    res.render("search", { terms:terms, users:users })
+  });
+});
+
+router.get("/esearch/", function(req,res) {
+  res.render("esearch");
+});
+
+router.post("/esearch/", function(req,res) {
+  var terms=req.body.terms;
+  Search.search({ query_string: { query:terms } }, function(err,results) {
+    res.render("esearch", { terms:terms, users:results.hits.hits })
+  });
+});
+
+router.get("/hesearch/", function(req,res) {
+  res.render("hesearch");
+});
+
+router.post("/hesearch/", function(req,res) {
+  var terms=req.body.terms;
+  Search.search({ query_string: { query:terms } }, { hydrate:true }, function(err,results) {
+    res.render("hesearch", { terms:terms, users:results.hits.hits })
+  });
+});
+
+Search.plugin(mongoosastic);
 
 module.exports = router;

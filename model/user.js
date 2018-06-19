@@ -11,13 +11,14 @@ var SearchSchema = new Schema({
     firstname: {
         type: String,
         required: 'Please enter your firstname',
-        es_indexed:true
+  
  
     },
      lastname: {
         type: String,
         required: 'Please enter your lastname',
-        es_indexed:true
+
+    
 
     },
     imagepath: String,
@@ -25,6 +26,7 @@ var SearchSchema = new Schema({
     number: {
         type: String,
         required: 'Please enter your mobile number',
+        es_indexed:true
    
     },
      email: {
@@ -32,7 +34,7 @@ var SearchSchema = new Schema({
         unique: true,
         lowercase:true,
         required: 'Please enter your email',
-        trim: true
+        es_indexed:true
     },
     address: {
         type: String,
