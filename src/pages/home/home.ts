@@ -18,13 +18,13 @@ export class HomePage implements OnInit{
   searchControl: FormControl;
   searching: any = false;
 
-  constructor(public itemservice: SearchService,public alertCtrl: AlertController,public navCtrl: NavController, public app: App,public _app: App) {
+  constructor(public itemservice: SearchService,public alertCtrl: AlertController,public navCtrl: NavController, public app: App) {
     {
       this.searchControl = new FormControl();
     }
   }
 ionViewDidLoad() {
-    
+           this.app.setTitle("GetInspired");
            this.setFilteredItems();
     
            this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
