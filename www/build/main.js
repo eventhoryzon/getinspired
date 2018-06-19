@@ -130,12 +130,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(itemservice, alertCtrl, navCtrl, app, _app) {
+    function HomePage(itemservice, alertCtrl, navCtrl, app) {
         this.itemservice = itemservice;
         this.alertCtrl = alertCtrl;
         this.navCtrl = navCtrl;
         this.app = app;
-        this._app = _app;
         this.storeItems = [];
         this.isOn = false;
         this.searchTerm = '';
@@ -146,6 +145,7 @@ var HomePage = /** @class */ (function () {
     }
     HomePage.prototype.ionViewDidLoad = function () {
         var _this = this;
+        this.app.setTitle("GetInspired");
         this.setFilteredItems();
         this.searchControl.valueChanges.debounceTime(700).subscribe(function (search) {
             _this.searching;
@@ -186,7 +186,7 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/Users/shazibali/SearchandFind/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color=\'fulldark\'>\n     <img src="assets/imgs/logo1.png" class="navbarLogo"/>\n   <!-- <ion-icon side="right" name="cart" color="energy"></ion-icon>   -->\n      <ion-searchbar *ngIf="isOn" [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="setFilteredItems()"></ion-searchbar>\n    <ion-buttons end>\n      <button  (click)="toggleDetails()" style="background: #1a1a1a; font-size: 2.0rem"><ion-icon name="search" color="energy" ></ion-icon></button>\n    </ion-buttons>\n    <div *ngIf="searching" class="spinner-container">\n      <ion-spinner></ion-spinner>\n  </div>\n  </ion-navbar>\n</ion-header>\n<ion-content id ="home" padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)" style="background-color:energy"></ion-refresher>\n  <h4>Welcome to Get-Inspired</h4>\n\n  <div class="container">\n  <div class="row" *ngFor="let item of storeItems; let i=index">\n <ion-card style="background-color: black">\n    \n  <ion-item style="background-color: black">\n    <h4 style="text-align: center; color: white">{{item.firstname}}{{item.lastname}}</h4>\n\n  </ion-item>\n\n<img src ="/{{item.originalname}}" >\n  <ion-card-content>\n    <p style="text-align:center; font-size:15px; color:  rgb(206, 203, 203) ">\n   {{item.about}}\n  </ion-card-content>\n  <ion-row>\n      <ion-col center text-left>\n          <button ion-button color="energy">\n            Interests:{{item.interests}}\n          </button>\n        </ion-col>\n    <ion-col center text-right>\n      <button ion-button color="fulldark" (click)="addItemInCart(item._id)">\n        <ion-icon name="heart" color="energy"></ion-icon>\n      </button>\n    </ion-col>\n    \n \n  </ion-row>\n</ion-card>\n</div>\n</div>\n</ion-content>\n'/*ion-inline-end:"/Users/shazibali/SearchandFind/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_search_service_search_service__["a" /* SearchService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_search_service_search_service__["a" /* SearchService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
     ], HomePage);
     return HomePage;
 }());
