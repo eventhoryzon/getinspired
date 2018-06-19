@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var multer  = require('multer');
 var config = require('../config/config');
 var mongoosastic = require('mongoosastic');
+var port = process.env.PORT || 8080;
 
 //User Model Schema 
 var SearchSchema = new Schema({
@@ -63,7 +64,10 @@ var SearchSchema = new Schema({
     },
 });
 
-SearchSchema.plugin(mongoosastic);
+SearchSchema.plugin(mongoosastic,{
+    host:"127.0.0.1",
+    port: port
+  });
 
 
 module.exports = mongoose.model('Search', SearchSchema);

@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
 var request = require('request');
+var mongoose = require('mongoose');
 var mongoosastic = require('mongoosastic');
 var User = require('../model/user');
 var newUser = require('../methods/searchactions');
+var Search = mongoose.model('Search');
 
 var searchactions = require('../methods/searchactions');
 
@@ -66,8 +68,7 @@ if(req.file){
 router.get('/getallusers' , newUser.getallusers);
 
 
-// Trying to use elastisearch to map and search models on the point based system
-var Search = mongoose.model("User", SearchSchema);
+
 
 Search.createMapping(function(err, mapping){
   if(err){
@@ -108,6 +109,6 @@ router.post("/hesearch/", function(req,res) {
   });
 });
 
-Search.plugin(mongoosastic);
+
 
 module.exports = router;
