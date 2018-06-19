@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar color='fulldark'>
+     <img src="assets/imgs/logo1.png" class="navbarLogo"/>
+   <!-- <ion-icon side="right" name="cart" color="energy"></ion-icon>   -->
+      <ion-searchbar *ngIf="isOn" [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="setFilteredItems()"></ion-searchbar>
+    <ion-buttons end>
+      <button  (click)="toggleDetails()" style="background: #1a1a1a; font-size: 2.0rem"><ion-icon name="search" color="energy" ></ion-icon></button>
+    </ion-buttons>
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+  </div>
+  </ion-navbar>
+</ion-header>
+<ion-content id ="home" padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)" style="background-color:energy"></ion-refresher>
+  <h4>Welcome to Get-Inspired</h4>
+
+  <div class="container">
+  <div class="row" *ngFor="let item of storeItems; let i=index">
+ <ion-card style="background-color: black">
+    
+  <ion-item style="background-color: black">
+    <h4 style="text-align: center; color: white">{{item.firstname}}{{item.lastname}}</h4>
+
+  </ion-item>
+
+<img src ="/{{item.originalname}}" >
+  <ion-card-content>
+    <p style="text-align:center; font-size:15px; color:  rgb(206, 203, 203) ">
+   {{item.about}}
+  </ion-card-content>
+  <ion-row>
+      <ion-col center text-left>
+          <button ion-button color="energy">
+            Interests:{{item.interests}}
+          </button>
+        </ion-col>
+    <ion-col center text-right>
+      <button ion-button color="fulldark" (click)="addItemInCart(item._id)">
+        <ion-icon name="heart" color="energy"></ion-icon>
+      </button>
+    </ion-col>
+    
+ 
+  </ion-row>
+</ion-card>
+</div>
+</div>
+</ion-content>
